@@ -8,48 +8,40 @@
 import SwiftUI
 
 struct ContentView: View {
+    @EnvironmentObject var model:ContentModel
+    
     var body: some View {
         ZStack {
-            Color.black
-                .ignoresSafeArea()
-            
             GeometryReader { geo in
-                VStack {
-                    HStack (spacing: geo.size.width/15){
-                        CalculatorButton(color: Color.gray, diameter: (geo.size.width/5), text: "AC")
-                        CalculatorButton(color: Color.gray, diameter: (geo.size.width/5), text: "+/-")
-                        CalculatorButton(color: Color.gray, diameter: (geo.size.width/5), text: "%")
-                        CalculatorButton(color: Color.orange, diameter: (geo.size.width/5), text: "÷")
-                    }
+                
+                //MARK: Background
+                Color.black
+                    .ignoresSafeArea()
+                
+                VStack (alignment: .trailing){
+                    Spacer()
                     
-                    HStack (spacing: geo.size.width/15){
-                        CalculatorButton(color: Color(red: 30/255, green: 30/255, blue: 30/255), diameter: (geo.size.width/5), text: "7")
-                        CalculatorButton(color: Color(red: 30/255, green: 30/255, blue: 30/255), diameter: (geo.size.width/5), text: "8")
-                        CalculatorButton(color: Color(red: 30/255, green: 30/255, blue: 30/255), diameter: (geo.size.width/5), text: "9")
-                        CalculatorButton(color: Color.orange, diameter: (geo.size.width/5), text: "×")
-                    }
-
-                    HStack (spacing: geo.size.width/15){
-                        CalculatorButton(color: Color(red: 30/255, green: 30/255, blue: 30/255), diameter: (geo.size.width/5), text: "4")
-                        CalculatorButton(color: Color(red: 30/255, green: 30/255, blue: 30/255), diameter: (geo.size.width/5), text: "5")
-                        CalculatorButton(color: Color(red: 30/255, green: 30/255, blue: 30/255), diameter: (geo.size.width/5), text: "6")
-                        CalculatorButton(color: Color.orange, diameter: (geo.size.width/5), text: "-")
-                    }
-
-                    HStack (spacing: geo.size.width/15){
-                        CalculatorButton(color: Color(red: 30/255, green: 30/255, blue: 30/255), diameter: (geo.size.width/5), text: "1")
-                        CalculatorButton(color: Color(red: 30/255, green: 30/255, blue: 30/255), diameter: (geo.size.width/5), text: "2")
-                        CalculatorButton(color: Color(red: 30/255, green: 30/255, blue: 30/255), diameter: (geo.size.width/5), text: "3")
-                        CalculatorButton(color: Color.orange, diameter: (geo.size.width/5), text: "+")
-                    }
+                    //MARK: Result Number
+                    Text(String(model.calculatorResult))
+                        .foregroundColor(.white)
+                        .bold()
+                        .font(.custom("xxlTitle", size: 80))
+                        .padding(.trailing, 30)
                     
-                    HStack (spacing: geo.size.width/15){
-                        CalculatorButton(color: Color(red: 30/255, green: 30/255, blue: 30/255), diameter: (geo.size.width/5), text: "0")
-                        CalculatorButton(color: Color(red: 30/255, green: 30/255, blue: 30/255), diameter: (geo.size.width/5), text: "")
-                        CalculatorButton(color: Color(red: 30/255, green: 30/255, blue: 30/255), diameter: (geo.size.width/5), text: ".")
-                        CalculatorButton(color: Color.orange, diameter: (geo.size.width/5), text: "=")
+                    //MARK: Calc Buttons
+                    Group {
+                        CalculatorRow(widthOfScreen: geo.size.width, colorOfButtons: Color.gray, colorOfOperator: Color.orange, text1: "AC", text2: "+/-", text3: "%", operatorText: "/")
+                        
+                        CalculatorRow(widthOfScreen: geo.size.width, colorOfButtons: Color(red: 30/255, green: 30/255, blue: 30/255), colorOfOperator: Color.orange, text1: "7", text2: "8", text3: "9", operatorText: "x")
+                        
+                        CalculatorRow(widthOfScreen: geo.size.width, colorOfButtons: Color(red: 30/255, green: 30/255, blue: 30/255), colorOfOperator: Color.orange, text1: "4", text2: "5", text3: "6", operatorText: "-")
+                        
+                        CalculatorRow(widthOfScreen: geo.size.width, colorOfButtons: Color(red: 30/255, green: 30/255, blue: 30/255), colorOfOperator: Color.orange, text1: "1", text2: "2", text3: "3", operatorText: "+")
+                        
+                        CalculatorRow(widthOfScreen: geo.size.width, colorOfButtons: Color(red: 30/255, green: 30/255, blue: 30/255), colorOfOperator: Color.orange, text1: "0", text2: "", text3: ".", operatorText: "=")
                     }
                 }
+                .padding(.bottom, 20)
             }
         }
     }
@@ -58,5 +50,7 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+            .previewDevice("iPhone 12 mini")
+            .environmentObject(ContentModel())
     }
 }
