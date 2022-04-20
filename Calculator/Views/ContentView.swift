@@ -12,13 +12,12 @@ struct ContentView: View {
     
     var body: some View {
         ZStack {
+            //MARK: Background
+            Color.black
+                .ignoresSafeArea()
+            
             GeometryReader { geo in
-                
-                //MARK: Background
-                Color.black
-                    .ignoresSafeArea()
-                
-                VStack (alignment: .trailing){
+                VStack (alignment: .trailing) {
                     Spacer()
                     
                     //MARK: Result Number
@@ -43,6 +42,7 @@ struct ContentView: View {
                 }
                 .padding(.bottom, 20)
             }
+            .padding(.horizontal, 10)
         }
     }
 }
