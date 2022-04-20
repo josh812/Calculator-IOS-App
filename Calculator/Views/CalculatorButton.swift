@@ -11,17 +11,33 @@ struct CalculatorButton: View {
     var color:Color
     var diameter:CGFloat
     var text:String
+    var zeroButton:Bool = false
     
     var body: some View {
-        ZStack {
-            Ellipse()
-                .foregroundColor(color)
-                .frame(width: diameter, height: diameter)
-            
-            Text(text)
-                .font(.title)
-                .bold()
-                .foregroundColor(.white)
+        if zeroButton == false {
+            ZStack {
+                Ellipse()
+                    .foregroundColor(color)
+                    .frame(width: diameter, height: diameter)
+                
+                Text(text)
+                    .font(.title)
+                    .bold()
+                    .foregroundColor(.white)
+            }
+        } else {
+            ZStack (alignment: .leading) {
+                Rectangle()
+                    .foregroundColor(color)
+                    .frame(height: diameter)
+                    .cornerRadius(100)
+                
+                Text(text)
+                    .font(.title)
+                    .bold()
+                    .foregroundColor(.white)
+                    .padding(.leading, 30)
+            }
         }
     }
 }

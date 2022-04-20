@@ -12,11 +12,11 @@ class ContentModel: ObservableObject {
     @Published var calculatorResult = "0"
     
     func processButtonPress(symbol:String) {
-        if symbol == "+" || symbol == "-" || symbol == "x" || symbol == "/" || symbol == "=" {
+        if symbol == "+" || symbol == "−" || symbol == "x" || symbol == "/" || symbol == "=" {
             if symbol == "+" {
                 //MARK: +
                 if calculatorResult.contains("+") ||
-                    calculatorResult.contains("-") ||
+                    calculatorResult.contains("−") ||
                     calculatorResult.contains("x") ||
                     calculatorResult.contains("/") {
                     let valuesList = calculatorResult.split(separator: " ")
@@ -31,10 +31,10 @@ class ContentModel: ObservableObject {
                 } else {
                     calculatorResult += " + "
                 }
-            } else if symbol == "-" {
+            } else if symbol == "−" {
                 //MARK: -
                 if calculatorResult.contains("+") ||
-                    calculatorResult.contains("-") ||
+                    calculatorResult.contains("−") ||
                     calculatorResult.contains("x") ||
                     calculatorResult.contains("/") {
                     let valuesList = calculatorResult.split(separator: " ")
@@ -42,17 +42,17 @@ class ContentModel: ObservableObject {
                     if valuesList.indices.contains(2) {
                         calculatorResult = String(self.calculateResult(Float(valuesList[0]) ?? 0, Float(valuesList[2]) ?? 0, String(valuesList[1])))
                         
-                        calculatorResult += " - "
+                        calculatorResult += " − "
                     } else {
                         return
                     }
                 } else {
-                    calculatorResult += " - "
+                    calculatorResult += " − "
                 }
             } else if symbol == "x" {
                 //MARK: x
                 if calculatorResult.contains("+") ||
-                    calculatorResult.contains("-") ||
+                    calculatorResult.contains("−") ||
                     calculatorResult.contains("x") ||
                     calculatorResult.contains("/") {
                     let valuesList = calculatorResult.split(separator: " ")
@@ -70,7 +70,7 @@ class ContentModel: ObservableObject {
             } else if symbol == "/" {
                 //MARK: /
                 if calculatorResult.contains("+") ||
-                    calculatorResult.contains("-") ||
+                    calculatorResult.contains("−") ||
                     calculatorResult.contains("x") ||
                     calculatorResult.contains("/") {
                     let valuesList = calculatorResult.split(separator: " ")
@@ -88,7 +88,7 @@ class ContentModel: ObservableObject {
             } else if symbol == "=" {
                 //MARK: =
                 if calculatorResult.contains("+") ||
-                    calculatorResult.contains("-") ||
+                    calculatorResult.contains("−") ||
                     calculatorResult.contains("x") ||
                     calculatorResult.contains("/") {
                     let valuesList = calculatorResult.split(separator: " ")
@@ -105,8 +105,9 @@ class ContentModel: ObservableObject {
                 //MARK: AC
                 calculatorResult = "0"
             } else if symbol == "%" {
+                //MARK: %
                 if calculatorResult.contains("+") ||
-                    calculatorResult.contains("-") ||
+                    calculatorResult.contains("−") ||
                     calculatorResult.contains("x") ||
                     calculatorResult.contains("/") {
                     let valuesList = calculatorResult.split(separator: " ")
@@ -121,15 +122,35 @@ class ContentModel: ObservableObject {
                 } else {
                     calculatorResult = String((Float(calculatorResult) ?? 0) / 100)
                 }
+            } else if symbol == "+/-" {
+                //MARK: +/-
+                if calculatorResult.contains("+") ||
+                    calculatorResult.contains("−") ||
+                    calculatorResult.contains("x") ||
+                    calculatorResult.contains("/") {
+                    
+                    let valuesList = calculatorResult.split(separator: " ")
+                    
+                    if valuesList.indices.contains(2) {
+                        let newValue:Float = ((Float(valuesList[2]) ?? 0) * -1)
+                        
+                        calculatorResult = String(valuesList[0]) + " " + String(valuesList[1]) + " " + String(newValue)
+                    } else {
+                        return
+                    }
+                } else {
+                    calculatorResult = String((Float(calculatorResult) ?? 0) * -1)
+                }
             }
         } else {
+            //MARK: Numbers
             if calculatorResult == "0" && symbol != "." {
                 calculatorResult = symbol
             } else if calculatorResult == "0" && symbol == "." {
                 calculatorResult += symbol
             } else if symbol == "." {
                 if calculatorResult.contains("+") ||
-                    calculatorResult.contains("-") ||
+                    calculatorResult.contains("−") ||
                     calculatorResult.contains("x") ||
                     calculatorResult.contains("/") {
                     let valuesList = calculatorResult.split(separator: " ")
@@ -162,7 +183,7 @@ class ContentModel: ObservableObject {
     func calculateResult(_ a:Float, _ b:Float, _ calcOperator:String) -> Float {
         if calcOperator == "+" {
             return Operations.add(a, b)
-        } else if calcOperator == "-" {
+        } else if calcOperator == "−" {
             return Operations.subtract(a, b)
         } else if calcOperator == "x" {
             return Operations.multiply(a, b)

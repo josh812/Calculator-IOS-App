@@ -34,11 +34,11 @@ struct ContentView: View {
                         
                         CalculatorRow(widthOfScreen: geo.size.width, colorOfButtons: Color(red: 30/255, green: 30/255, blue: 30/255), colorOfOperator: Color.orange, text1: "7", text2: "8", text3: "9", operatorText: "x")
                         
-                        CalculatorRow(widthOfScreen: geo.size.width, colorOfButtons: Color(red: 30/255, green: 30/255, blue: 30/255), colorOfOperator: Color.orange, text1: "4", text2: "5", text3: "6", operatorText: "-")
+                        CalculatorRow(widthOfScreen: geo.size.width, colorOfButtons: Color(red: 30/255, green: 30/255, blue: 30/255), colorOfOperator: Color.orange, text1: "4", text2: "5", text3: "6", operatorText: "−")
                         
                         CalculatorRow(widthOfScreen: geo.size.width, colorOfButtons: Color(red: 30/255, green: 30/255, blue: 30/255), colorOfOperator: Color.orange, text1: "1", text2: "2", text3: "3", operatorText: "+")
                         
-                        CalculatorRow(widthOfScreen: geo.size.width, colorOfButtons: Color(red: 30/255, green: 30/255, blue: 30/255), colorOfOperator: Color.orange, text1: "0", text2: "", text3: ".", operatorText: "=")
+                        CalculatorRow(widthOfScreen: geo.size.width, colorOfButtons: Color(red: 30/255, green: 30/255, blue: 30/255), colorOfOperator: Color.orange, text1: "0", text2: "", text3: ".", operatorText: "=", zeroButton: true)
                     }
                 }
                 .padding(.bottom, 20)

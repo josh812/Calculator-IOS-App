@@ -17,31 +17,55 @@ struct CalculatorRow: View {
     var text2:String
     var text3:String
     var operatorText:String
+    var zeroButton:Bool = false
     
     var body: some View {
-        HStack (spacing: widthOfScreen/15){
-            Button {
-                model.processButtonPress(symbol: text1)
-            } label: {
-                CalculatorButton(color: colorOfButtons, diameter: (widthOfScreen/5), text: text1)
+        if zeroButton == false {
+            HStack (spacing: widthOfScreen/15) {
+                Button {
+                    model.processButtonPress(symbol: text1)
+                } label: {
+                    CalculatorButton(color: colorOfButtons, diameter: (widthOfScreen/5), text: text1)
+                }
+                
+                Button {
+                    model.processButtonPress(symbol: text2)
+                } label: {
+                    CalculatorButton(color: colorOfButtons, diameter: (widthOfScreen/5), text: text2)
+                }
+                
+                Button {
+                    model.processButtonPress(symbol: text3)
+                } label: {
+                    CalculatorButton(color: colorOfButtons, diameter: (widthOfScreen/5), text: text3)
+                }
+                
+                Button {
+                    model.processButtonPress(symbol: operatorText)
+                } label: {
+                    CalculatorButton(color: colorOfOperator, diameter: (widthOfScreen/5), text: operatorText)
+                }
             }
-            
-            Button {
-                model.processButtonPress(symbol: text2)
-            } label: {
-                CalculatorButton(color: colorOfButtons, diameter: (widthOfScreen/5), text: text2)
-            }
-            
-            Button {
-                model.processButtonPress(symbol: text3)
-            } label: {
-                CalculatorButton(color: colorOfButtons, diameter: (widthOfScreen/5), text: text3)
-            }
-            
-            Button {
-                model.processButtonPress(symbol: operatorText)
-            } label: {
-                CalculatorButton(color: colorOfOperator, diameter: (widthOfScreen/5), text: operatorText)
+        } else {
+            HStack (spacing: widthOfScreen/15) {
+                Button {
+                    model.processButtonPress(symbol: text1)
+                } label: {
+                    CalculatorButton(color: colorOfButtons, diameter: (widthOfScreen/5), text: text1, zeroButton: true)
+                }
+                
+                Button {
+                    model.processButtonPress(symbol: text3)
+                } label: {
+                    CalculatorButton(color: colorOfButtons, diameter: (widthOfScreen/5), text: text3)
+                }
+                
+                
+                Button {
+                    model.processButtonPress(symbol: operatorText)
+                } label: {
+                    CalculatorButton(color: colorOfOperator, diameter: (widthOfScreen/5), text: operatorText)
+                }
             }
         }
     }
